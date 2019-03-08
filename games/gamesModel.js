@@ -2,28 +2,19 @@ const db = require("../data/dbConfig.js");
 
 module.exports = {
   insert,
-  update,
-  remove,
-  getAll,
-  findById
+  remove
 };
 
 async function insert(game) {
-  return null;
-}
+  const [id] = await db("games").insert(game);
 
-async function update(id, changes) {
-  return null;
+  return db("games")
+    .where({ id })
+    .first();
 }
 
 function remove(id) {
-  return null;
-}
-
-function getAll() {
-  return db("games");
-}
-
-function findById(id) {
-  return null;
+  return db("games")
+    .where("id", Number(id))
+    .del();
 }
